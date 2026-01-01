@@ -1,0 +1,85 @@
+!pip install langchain==0.1.19
+!pip install langchain-openai==0.1.6
+!pip install langchain-community==0.3.19
+!pip install huggingface_hub==0.20.3
+!pip install transformers==4.38.2
+!pip install langchain-google-genai
+!pip install -U langchain-google-genai
+from getpass import getpass
+api_key = getpass('Enter your Google API Key: ')
+
+from getpass import getpass
+OPENAI_KEY = getpass("Please enter your open AI API Key here:")
+
+from getpass import getpass
+HUGGINGFACEHUB_API_TOKEN = getpass("Please enter your HUGGINGFACE Token here: ")
+
+import os
+
+os.environ['HF_TOKEN'] = HUGGINGFACEHUB_API_TOKEN
+os.environ["GOOGLE_API_KEY"] = api_key
+
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+llmchat = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+
+prompt ="""Explain what is Generative AI in 3 bullet points"""
+print(prompt)
+
+response = llmchat.invoke(prompt)
+print(response.content)
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+llmchat = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+
+prompt ="""Explain what is Generative AI in 3 bullet points"""
+print(prompt)
+
+response =llmchat.invoke(prompt)
+print(response)
+
+print(response.content)
+
+!git config --global user.email "rahul02.500@gmail.com"
+!git config --global user.name "rahul02500"
+
+!git init
+
+
+!git status
+
+!git remote add origin https://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@github.com/rahul02500/Colab.git
+
+
+!git status
+
+!git add "llmchat.ipynb"
+
+%cd Colab
+!git add .
+!git commit -m "Update from Colab"
+!git push origin main
+
+
+# 1. Initialize the repository (if you haven't already)
+!git init
+
+# 2. Add your notebook to the staging area
+!git add "llmchat.ipynb"
+
+# 3. Create the first commit (This is the missing step!)
+!git commit -m "Initial commit of the LangChain notebook"
+
+# 4. Ensure you are on the 'main' branch
+!git branch -M main
+
+# 5. Push to your repository
+!git push -u origin main
+
+
+!git remote -v
+
+!git status
+
