@@ -1,0 +1,137 @@
+!pip install langchain==0.3.26
+!pip install langchain-openai==0.3.28
+!pip install langchain-community==0.3.27
+!pip install -U langchain-google-genai
+
+
+PromptTemplate
+
+from langchain.prompts import PromptTemplate
+
+# Simple prompt
+
+prompt = """Explain to me what is Generative AI in 3 bullet points?"""
+prompt_template = PromptTemplate.from_template(prompt)
+prompt_template
+
+prompt_template.format()
+
+response = chatgpt.invoke(prompt_template.format())
+print(response.content)
+
+
+
+# more complex prompt with placeholders
+prompt = """Explain to me briefly about {topic} in {language}."""
+
+prompt_template = PromptTemplate.from_template(prompt)
+prompt_template
+
+
+inputs = [("Generative AI", "english"),
+          ("Artificial Intelligence", "hindi"),
+          ("Deep Learning", "german")]
+
+prompts = [prompt_template.format(topic=topic, language=language) for topic, language in inputs]
+prompts
+
+
+# use map to run on multiple prompts in one go
+responses = chatgpt.map().invoke(prompts)
+
+
+responses
+
+
+
+for response in responses:
+  print(response.content)
+  print('-----')
+
+
+# Updated import paths for prompt templates - using simplified paths:
+from langchain.prompts import ChatPromptTemplate
+
+# simple prompt with placeholders
+prompt = """Explain to me briefly about {topic}."""
+
+chat_template = ChatPromptTemplate.from_template(prompt)
+chat_template
+
+topics = ['mortgage', 'fractional real estate', 'commercial real estate']
+prompts = [chat_template.format(topic=topic) for topic in topics]
+prompts
+
+
+responses = chatgpt.map().invoke(prompts)
+for response in responses:
+  print(response.content)
+  print('-----')
+
+
+responses[0]
+
+
+# more complex prompt with a series of messages
+messages = [
+        ("system", "Act as an expert in real estate and provide brief answers"),
+        ("human", "what is your name?"),
+        ("ai", "my name is AIBot"),
+        ("human", "{user_prompt}"),
+]
+chat_template = ChatPromptTemplate.from_messages(messages)
+chat_template
+
+
+text_prompts = ["what is your name?",
+                "explain commercial real estate to me"]
+chat_prompts = [chat_template.format(user_prompt=prompt) for prompt in text_prompts]
+chat_prompts
+
+
+print(chat_prompts[0])
+
+
+print(chat_prompts[1])
+
+
+responses = chatgpt.map().invoke(chat_prompts)
+for response in responses:
+  print(response.content)
+  print('-----')
+
+
+messages = [
+        ("system", "Act as an expert in real estate and provide very detailed answers with examples"),
+        ("human", "what is your name?"),
+        ("ai", "my name is AIBot"),
+        ("human", "{user_prompt}"),
+]
+chat_template = ChatPromptTemplate.from_messages(messages)
+text_prompts = ["what is your name?", "explain commercial real estate to me"]
+chat_prompts = [chat_template.format(user_prompt=prompt) for prompt in text_prompts]
+chat_prompts
+
+
+responses = chatgpt.map().invoke(chat_prompts)
+for response in responses:
+  print(response.content)
+  print('-----')
+
+text_prompts = ["what is your name?", "explain commercial real estate to me"]
+chat_prompts = [chat_template.invoke({'user_prompt' : prompt}) for prompt in text_prompts]
+chat_prompts
+
+
+chat_prompts[1]
+
+
+print(chat_prompts[1].to_string())
+
+chat_prompts[1].to_messages()
+
+
+responses = chatgpt.map().invoke(chat_prompts)
+for response in responses:
+  print(response.content)
+  print('-----')
